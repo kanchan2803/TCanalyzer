@@ -14,3 +14,15 @@ export const analyzeCode = async (code, language) => {
         throw error;
     }
 };
+
+// get user details
+export const getUserApi = async (id) => {
+  const res = await API.get(`/user/${id}`);
+  return res.data;
+};
+
+// update user profile
+export const updateUserApi = async (id, data) => {
+  const res = await API.put(`/user/${id}`, data);
+  return res.data;
+};

@@ -1,17 +1,30 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { ChatGroq } from '@langchain/groq';
 import { ChatPromptTemplate } from '@langchain/core/prompts';
 import { JsonOutputParser } from '@langchain/core/output_parsers';
+import authRoutes from './routes/authController.js'
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT ;
 
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_DB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log("✅ MongoDB connected"))
+.catch((error) => console.error("❌ MongoDB connection error:", error));
+
+
 //middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use("/auth", authRoutes); //This tells your server: “Any request that starts with /auth should be handled by the auth.js router.” After this, your backend will recognize /auth/signup and /auth/login.
 
 // Setup Groq LLM
 const model = new ChatGroq({

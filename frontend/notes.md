@@ -96,5 +96,110 @@ imported tailwind css in css files
 > the structure fro complete app is made now 
 >going to create all components and page should render componenets so home page cod ewill eventually change as of now ,as comonents will be rendered and not the exact functionality 
 
+-added about and footer 
 
+## proceeding with navbar first 
+
+### creating routes
+first creating the routes
+- installed react-router-dom 
+- setting up browserrouter in main.jsx
+- in app.jsx setting up the routes 
+  - importing all pages 
+  - setting up the routes using route and routes component from react-router-dom
+  - setting up the path for each page
+
+### Navbar.jsx
+- logo , pages link, and user circle
+-Navlink to navigateto pages 
+  navlink <NavLink to="/" end className={linkClasses}>Home</NavLink>
+- user circle shows the links of leetcode and codeforce andlogot option or the login and signu option
+making this meant i need storage so heading towards it 
+
+>setting up storage in backend
+>completed setting connection with mongodb and creating user db and routes fro it now making login and sign up frontend
+
+# login & signup
+
+## api/auth.js
+It’s basically a helper file that:
+Creates an axios instance (API) that knows where your backend lives.
+Defines functions that hit your backend endpoints (/auth/signup, /auth/login, etc.).
+Makes it easy for React components to call signup(...) or login(...) without repeating axios code everywhere.
+
+1. import axios 
+2. make API the axios instance callling the base url
+3. then funcions for signup and login '
+4. SIGNUP fnxn
+  - export an async fnxn taking in name,email and password as input 
+  - try catch block 
+  - catch will have error and show it in console 
+  - try will have 
+    - creating data object that stores the reposnce on calling the post endpoint of signup created in backend 
+    - const { data } = await API.post("/auth/signup", { name, email, password });
+    - return this data 
+5. Login fnxn 
+   similar steps as above just keep only 2 firlds as input now email and password 
+
+## signup.jsx frontend 
+- import signup from auth .js
+- useState for form 
+  setForm(...)  
+  form is your state object holding all fields:
+const [form, setForm] = useState({
+  name: "",
+  email: "",
+  password: "",
+  leetcodeId: "",
+  codeforcesId: "",
+});
+setForm is used to update that state.
+- usestate fro message 
+- handlechange fnxn 
+  e (the event) 
+  When you type in an <input> in React, an event is fired. That event contains info like which input triggered it, and what the current value is.
+    Example: if you type "kanchan" into the name input →
+    e.target.name will be "name" and e.target.value will be "kanchan".
+- handleSubmit fnxn
+  when submit button is clicked submits the form to signup fnxn of auth .js 
+  makes a call to login fnxn fro autologin after signup and navigates to h ome page 
+
+- in rturn we define the structure of complete form 
+usin g Input tags
+
+- add its route in app.js 
+```  <Route path="/signup" element={<Signup />} />```
+
+- similarly login.jsx is made but we store the tokens and otehr details in localstorage 
+
+### in navbar makes necesary changes relatedto state
+- we will remove the hard coded data as earlier and will make it reflect changes when logged in and logged out 
+
+  - added one more usestate for user
+  - used useeffect to markthe fields when loggedin 
+    - first getting token from localstorage
+    - if token is present then set logged in state and set user 
+    - change the initial to user's first letter 
+    >{isLoggedIn ? user.name[0].toUpperCase() : "?"} {/* Initial for logged user, ? if guest */}
+    - set the details with user.name and in lc id and cfid 
+    - in logout button set localstorage to clear when onclick
+    
+trying to fix the login and signup fnxn and to change the state in navbar 
+after trying manual mounting and other things navbar details arent getting updated wiht user details 
+will be using context now 
+
+# creating authcontext.js 
+authcontext created using createcintext 
+making authprovider 
+it is a fnxn that takes in children prop object
+setting user and islogged in usestate
+tehn calling useffect
+that sets up details in local storage
+then making login an dlogout fnxn
+
+adding this context login in navbar and in login.jsx
+
+wrap all components an droutes within authprovider in app.jsx
+
+ 
 
