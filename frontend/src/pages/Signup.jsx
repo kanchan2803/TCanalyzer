@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
-import { signup, login as loginApi } from "../../api/auth";
+import { signup, login as loginApi } from "../services/auth.js";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/authContext";
+import { useAuth } from "../context/authContext";
 
 export default function Signup() {
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext); // ✅ get context function
+  const { login } = useAuth(); 
 
   const [form, setForm] = useState({
     name: "",
@@ -26,11 +26,12 @@ export default function Signup() {
       // signup first
       const res = await signup(form);
       setMessage(res.message || "Signup successful!");
+      console.log("SIgnup Succesful");
 
       // then login automatically
       const loginRes = await loginApi({ email: form.email, password: form.password });
       login(loginRes); // ✅ updates AuthContext and localStorage
-
+      console.log("Login succesful!");
       navigate("/");
     } catch (error) {
       setMessage(error.response?.data?.message || "Signup failed");

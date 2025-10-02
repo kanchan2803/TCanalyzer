@@ -1,7 +1,7 @@
 // src/pages/Settings.jsx
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
-import { updateUserApi } from "../../api/api";
+import { AuthContext } from "../context/authContext";
+import { updateUserApi } from "../services/api";
 
 export default function Settings() {
   const { user, updateUser } = useContext(AuthContext);

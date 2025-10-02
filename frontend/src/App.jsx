@@ -7,32 +7,38 @@ import History from './pages/History'
 import Login from './pages/Login'
 import Footer from './components/layouts/Footer'
 import Signup from './pages/Signup'
-import PrivateContext from './context/privateContext'
+import PrivateRoute from './components/PrivateRoute'
 import { AuthProvider } from './context/authContext'
 import Settings from './pages/Settings'
 
 export default function App() {
   
   return (
-    <AuthProvider>
+    <>
       <Navbar />
+      <main className='flex-grow'>
+
       <Routes>
+        {/* public routes */}
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />} />
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
+
+        {/* private routes */}
         <Route path='/history' element={
-          <PrivateContext>
+          <PrivateRoute>
             <History /> 
-          </PrivateContext> } />
+          </PrivateRoute> } />
         
         <Route path='/settings' element={
-          <PrivateContext>
+          <PrivateRoute>
             <Settings />
-          </PrivateContext>
+          </PrivateRoute>
         } />
         </Routes>
+        </main>
       <Footer />
-    </AuthProvider >
+    </ >
   )
 }

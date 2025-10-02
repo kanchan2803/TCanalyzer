@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { analyzeCode } from '../../api/api';
+import { analyzeCode } from '../../src/services/api';
 import LanguageSelect from '../components/analysis/LanguageSelect';
 import PasteInput from '../components/inputs/PasteInput';
 import ActionButtons from '../components/analysis/ActionButtons';

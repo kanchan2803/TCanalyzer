@@ -1,11 +1,11 @@
-import React, { useState, useContext } from "react";
-import { login as loginApi } from "../../api/auth";
+import React, { useState } from "react";
+import { login as loginApi } from "../../src/services/auth.js";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/authContext";
+import { useAuth } from "../context/authContext";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext);
+  const { login } = useAuth();
 
   const [form, setForm] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");

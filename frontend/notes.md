@@ -201,5 +201,53 @@ adding this context login in navbar and in login.jsx
 
 wrap all components an droutes within authprovider in app.jsx
 
- 
+>there is some constant error in login and so i am revisiting the complete auth , odne with cleaning up and sorting the backend now its turn for frontend
+
+step 1: creating api for backend 
+- api folder is renamed to services and moved into src 
+- in it auth.js is goingto handle api's for connecting to backend regarding the login and signup
+
+step2: create a signuppage in pages
+step3: create a loginpage in pages 
+step4: setup routes for these files
+
+>fixing the bug 
+1. sending whole user from backend login 
+2. fixing authContext
+  - removed usestate for loggedin,setloggedin
+  - exporting authContext by createContext
+  - exporting authProvider by arrow fnxn ,{ children as props }
+  - setting user with usestate
+  - useeffect,{ []} with initial load once to load the already set user fetching it from localstorage and setting user with json.parse
+  - const login arrow fnxn 
+    - takes in data as prop
+    - store loggedinUser from data.user
+    - store token and user as string in localstorage
+    - setuser as loggedin user
+  - logout fnxn
+    - remove item from localstorage 
+    -setuser null
+  - update fnxn
+    - setuser as the updated user
+    - set updated user in localstorage
+  - set this line const isLoggedIn = !!user;
+  - then return the provider and children with al things 
+  ```js
+  return (
+    <AuthContext.Provider value={{ user, isLoggedIn, login, logout , updateUser}}>
+      {children}
+    </AuthContext.Provider>
+  ); 
+  ```
+  - export the usecontext hook for easy usage\
+
+3.  The provider should only be in main.jsx to wrap your entire application once.
+    and clean the app.jsx 
+4. context/privateContext.jsx => component/PrivateRoute.jsx
+5. fix api calls 
+6. fix pages with new import paths
+- will directly use  useAuth hook created and not usecontext
+
+
+
 

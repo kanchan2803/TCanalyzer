@@ -1,65 +1,53 @@
-import React, { createContext, useState, useEffect } from "react";
-import { getUserApi } from "../../api/api";
+import React, { createContext, useState, useEffect, useContext } from "react";
 
-export const AuthContext = createContext();
+export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null); // will hold {name, leetcodeId, codeforcesId}
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Load from localStorage when app starts
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsLoggedIn(true);
-      setUser({
-        _id: localStorage.getItem("_id"),
-        name: localStorage.getItem("name"),
-        email: localStorage.getItem("email"),
-        leetcodeId: localStorage.getItem("leetcodeId") || "-",
-        codeforcesId: localStorage.getItem("codeforcesId") || "-"
-      });
+    // Load user from localStorage on initial load
+    const storedUser = localStorage.getItem("user");
+    if(storedUser){
+      setUser(JSON.parse(storedUser));
     }
+    
   }, []);
 
   const login = (data) => {
     // Save in localStorage
     console.log("AuthContext.login called with:", data);
+    const loggedInUser = data.user;
+    //only store token and user object instead of individual fields
     localStorage.setItem("token", data.token);
-    localStorage.setItem("_id",data.user._id);
-    localStorage.setItem("name", data.user.name);
-    localStorage.setItem("email", data.user.email || "-");
-    localStorage.setItem("leetcodeId", data.user.leetcodeId || "-");
-    localStorage.setItem("codeforcesId", data.user.codeforcesId || "-");
+    localStorage.setItem("user",JSON.stringify(data.user));
 
-    setIsLoggedIn(true);
-    setUser({
-      _id : data.user._id,
-      name: data.user.name,
-      email: data.user.email,
-      leetcodeId: data.user.leetcodeId || "-",
-      codeforcesId: data.user.codeforcesId || "-"
-    });
-    console.log("current user logged in :",data.user);
+    setUser(loggedInUser);
+    console.log("current user logged in :",loggedInUser);
   };
 
   const logout = () => {
     console.log("Logging out");
-    localStorage.clear();
-    setIsLoggedIn(false);
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setUser(null);
   };
 
-  const updateUser = (data) => {
-    setUser(data);
-    localStorage.setItem("user", JSON.stringify(data));
+  const updateUser = (updatedUserData) => {
+    setUser(updatedUserData);
+    localStorage.setItem("user", JSON.stringify(updatedUserData));
   };
 
-
+  const isLoggedIn = !!user;
 
   return (
-    <AuthContext.Provider value={{ user, isLoggedIn, login, logout }}>
+    <AuthContext.Provider value={{ user, isLoggedIn, login, logout , updateUser}}>
       {children}
     </AuthContext.Provider>
   );
 };
+
+// Custom hook to easily use the context
+export const useAuth = () => {
+    return useContext(AuthContext);
+}

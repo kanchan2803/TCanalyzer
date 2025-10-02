@@ -16,10 +16,10 @@ export const signup = async (formData)=>{
 };
 
 //login fnxn
-export const login = async ({ email, password })=>{
+export const login = async (credentials)=>{
     try {
-        console.log("Login request for ",{ email, password });
-        const { data }  = await API.post("/auth/login", { email, password });
+        console.log("Login request for ",credentials);
+        const { data }  = await API.post("/auth/login", credentials);
         console.log("login data:",data);
         return data;    
     } catch (error) {
