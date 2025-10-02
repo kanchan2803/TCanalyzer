@@ -15,6 +15,7 @@ export default function Signup() {
 
   const [message, setMessage] = useState("");
 
+  //the onchange fnxn : onchange={(e)=> estForm({...form,name:e.target.value})}
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };

@@ -148,3 +148,67 @@ adding api handler fnxn in api.js
 to get and update user
 
 ### update context
+add update user fnxn 
+
+### finally the frontend page settings.jsx e
+
+> fed up with all the error and mismatch in user data import and export making the complete auth from scratch again but with total clarity this time , taking help from yt , notes updated in notion , not much detialed but maybe will bring more clarity with whole process, and may also keep the same structure intact just a very few changes 
+
+all changes mentioned below:
+
+1. create db.js for mongoose connection and import itin server.js for clean connection setings
+2. server.js is renamed to index.js for nodemon compatibility
+3. validation fnxnx are created uing joi to clean up the controllers 
+4. now authRouter to create routes 
+    ```js
+    const router = express.Router();
+    router.post("/signup", signupValidation, signup);
+    router.post("/login", loginValidation, login);
+    export default router;
+  ```
+5. finally the logic of these routes in the controller
+    *Signup fnxn*
+    - take in the details from req.body
+    - check for already existing user
+        
+        ```jsx
+        //check if user already exists
+                const user = await User.findOne({ email });
+                if(user){
+                    return res.status(409)
+                            .json({message: "User Already exists",success: false});
+                }
+        ```
+        
+    - use bcrypt to hash the password
+        
+        ```jsx
+        const salt = await bcrypt.genSalt(10);
+                const hashedPassword = await bcrypt.hash(password, salt);
+        ```
+        
+    - create a new user
+    - save it in the schema
+    - set the status
+    *Login function*
+    - take in the req.body
+    - find already existing user
+    - if no user with i/p email then error
+    - if user exists then compare passwords
+        - use [bcrypt.compare](http://bcrypt.compare) for this first the i/p oassword then the actual user password as attributes
+    - now generate token using jwt
+        - add jwt secret in .env
+        - import jwt in the controller file
+        
+        ```jsx
+                //step 3: generate token
+                const token = jwt.sign(
+                    { email: user.email, _id:user._id},
+                     process.env.JWT_SECRET, 
+                     { expiresIn: "1h"},
+                )
+        ```
+        - 3 parameters : id, secret key, expires in
+    - now send response status and token within it
+
+6. added authentication middleware which uses jwt fro ensuring safe authentication for protected routes w

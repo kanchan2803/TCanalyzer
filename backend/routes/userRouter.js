@@ -1,5 +1,6 @@
 import express from 'express'
-import User from "../models/User";
+import User from "../models/User.js";
+import { ensureAuthenticated } from '../middleware/ensureAuthentication.js';
 
 const router = express.Router();
 
@@ -9,7 +10,7 @@ router.get(":/id", async(req,res)=>{
         if (!user) return res.status(404).json({ message: "User not found" });
         res.json(user);
     } catch (error) {
-        res.status(500).json({error:"SErver error"});
+        res.status(500).json({error:"Server error"});
     }
 })
 
@@ -27,5 +28,13 @@ router.put("/:id", async (req, res) => {
     res.status(500).json({ error: "Failed to update user" });
   }
 });
+
+router.get("/history/:/id",ensureAuthenticated , async(req,res)=>{
+  try {
+    //fetch history
+  } catch (error) {
+    
+  }
+})
 
 export default router;
