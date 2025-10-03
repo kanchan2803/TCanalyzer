@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
-import { analyzeCode } from '../../src/services/api';
+import { analyzeCode, saveHistoryApi } from '../../src/services/api';
 import LanguageSelect from '../components/analysis/LanguageSelect';
 import PasteInput from '../components/inputs/PasteInput';
 import ActionButtons from '../components/analysis/ActionButtons';
 import ResultCard from '../components/analysis/ResultCard';
+import { useAuth } from '../context/authContext';
 
 export function Home() {
 
     const [language,setLanguage] = useState("");
     const [code, setCode] = useState("");
     const [result,setResult] = useState("");
+    const { isLoggedIn } = useAuth();
 
     const handleAnalyze = async () => {
         if(!code.trim()) return;
@@ -18,6 +20,18 @@ export function Home() {
         try {
             const output = await analyzeCode(code,language);
             setResult(output);
+            console.log("analysis result:", output);
+
+            if(isLoggedIn){
+              await saveHistoryApi({
+                code: code || output.codeSample, // ensure one valid code field
+                language,
+                timeComplexity: output.timeComplexity,
+                spaceComplexity: output.spaceComplexity,
+                reasoning: output.reasoning
+              })
+            }
+
         } catch (error) {
             setResult("Error: " + error.message);
         }

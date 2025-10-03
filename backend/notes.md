@@ -219,6 +219,5 @@ all changes mentioned below:
 1. added update user fnxn in  controller/userController 
 2. add this /profile route as put api in routes 
 
-> starting with the home page modification , we will be using web scraping 
-# web scraping for solutions 
+# history page 
 

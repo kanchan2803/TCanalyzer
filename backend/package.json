@@ -26,7 +26,8 @@
     "jsonwebtoken": "^9.0.2",
     "langchain": "^0.3.34",
     "mongoose": "^8.18.2",
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "puppeteer": "^24.23.0"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.10"

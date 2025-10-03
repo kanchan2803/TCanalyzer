@@ -36,3 +36,23 @@ export const updateUserApi = async (userData) => {
     throw error;
   }
 };
+
+export const getHistoryApi = async () => {
+  try {
+    const res = await API.get("/user/history");
+    return res.data;
+  } catch (error) {
+    console.log("Error in getting history:",error);
+    throw error;
+  }
+}
+
+export const saveHistoryApi = async (history)=>{
+  try {
+    const { res } = await API.post("/user/history",history);
+    return res;
+  } catch (error) {
+    console.log("Error in saving history:",error);
+    throw error;
+  }
+}
