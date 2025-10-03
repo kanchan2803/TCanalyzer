@@ -31,15 +31,15 @@ const HistoryPage = () => {
 
   if (!isLoggedIn) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
         <h2 className="text-2xl font-semibold">Please login to view history</h2>
       </div>
     );
   }
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center">Your Analysis History</h1>
+    <div className="max-w-full mx-auto p-6 bg-gray-900 text-white">
+      <h1 className="text-4xl font-bold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">Your Analysis History</h1>
 
       {loading ? (
         <Loader />
@@ -47,7 +47,7 @@ const HistoryPage = () => {
         <EmptyHistory />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="md:col-span-1 border-r pr-4">
+          <div className="md:col-span-1 border-r border-gray-700 pr-4">
             <HistoryList history={history} onSelect={setSelectedHistory} />
           </div>
           <div className="md:col-span-2">

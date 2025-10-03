@@ -22,8 +22,8 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="w-full py-4 bg-gray-50 border-t border-gray-200 text-center">
-      <p className="text-sm text-gray-600 mb-1">
+    <footer className="w-full py-4 bg-gray-800 border-t border-gray-700 text-center">
+      <p className="text-sm text-gray-400 mb-1">
         ⚡ Made with curiosity, caffeine & too many console.logs() — by KD ⚡
       </p>
       <p className="text-xs text-gray-500 italic">{fact}</p>

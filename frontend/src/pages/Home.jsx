@@ -44,14 +44,16 @@ export function Home() {
     }
 
     return (
-        <div className='p-6 max-w-3xl mx-auto'>
+      <div className='min-h-screen bg-gray-900 p-6 flex items-center justify-center'>
 
-          <h1 className='text-3xl font-bold mb-6 text-center'> 
+        <div className='w-full max-w-3xl mx-auto bg-gray-800 text-white rounded-2xl shadow-2xl p-8 transform transition-all duration-500 hover:scale-105'>
+
+          <h1 className='text-5xl font-bold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 animate-pulse p-4'> 
              Time Complexity Analyzer
           </h1>
 
          {/* /input */}
-          <div className="mb-4">
+          <div className="mb-6">
             <LanguageSelect language={language} setLanguage={setLanguage} />
             <PasteInput code={code} setCode={setCode} /> 
           </div>
@@ -60,10 +62,11 @@ export function Home() {
 
 
           {/* results */}
-            <div className="mt-6">
-              <h4 className='text-lg font-semibold mb-2'>Analysis Result:</h4>
+            <div className="mt-8">
+              <h4 className='text-xl font-semibold mb-4'>Analysis Result:</h4>
               <ResultCard result={result} />
             </div>
         </div>
+      </div>
     )
 }

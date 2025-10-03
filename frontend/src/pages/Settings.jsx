@@ -44,16 +44,16 @@ export default function Settings() {
     }
   };
 
-  if (!user) return <div className="p-6">Please log in</div>;
+  if (!user) return <div className="p-6 bg-gray-900 text-white">Please log in</div>;
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6 flex items- center justify-center p-4">
-      <div className="w-full max-w-lg bg-white shadow-xl rounded-2xl p-8">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Profile Settings</h2>
+    <div className="min-h-screen bg-gray-900 p-6 flex items-center justify-center">
+      <div className="w-full max-w-lg bg-gray-800 shadow-xl rounded-2xl p-8 border border-gray-700">
+        <h2 className="text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 mb-8">Profile Settings</h2>
 
         {/* Display Mode */}
         {!editing ? (
-          <div className="space-y-4">
+          <div className="space-y-4 text-white">
             <div><strong>Name:</strong> {user.name}</div>
             <div><strong>Email:</strong> {user.email}</div>
             <div><strong>LeetCode ID:</strong> {user.leetcodeId || "—"}</div>
@@ -61,21 +61,21 @@ export default function Settings() {
 
             <button
               onClick={() => setEditing(true)}
-              className="mt-4 bg-blue-600 text-white px-4 py-2 rounded"
+              className="mt-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity"
             >
               Edit Profile
             </button>
           </div>
         ) : (
           // Edit Mode
-          <div className="space-y-4">
+          <div className="space-y-4 text-white">
             <div>
               <label className="block mb-1 text-sm">Name</label>
               <input
                 name="name"
                 value={form.name}
                 onChange={handleChange}
-                className="w-full border px-3 py-2 rounded"
+                className="w-full border px-3 py-2 rounded-lg bg-gray-700 text-white border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
             </div>
             <div>
@@ -84,7 +84,7 @@ export default function Settings() {
                 name="email"
                 value={form.email}
                 disabled
-                className="w-full border px-3 py-2 rounded bg-gray-100"
+                className="w-full border px-3 py-2 rounded-lg bg-gray-700 text-white border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
             </div>
             <div>
@@ -93,7 +93,7 @@ export default function Settings() {
                 name="leetcodeId"
                 value={form.leetcodeId}
                 onChange={handleChange}
-                className="w-full border px-3 py-2 rounded"
+                className="w-full border px-3 py-2 rounded-lg bg-gray-700 text-white border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
             </div>
             <div>
@@ -102,21 +102,21 @@ export default function Settings() {
                 name="codeforcesId"
                 value={form.codeforcesId}
                 onChange={handleChange}
-                className="w-full border px-3 py-2 rounded"
+                className="w-full border px-3 py-2 rounded-lg bg-gray-700 text-white border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
             </div>
-            {message && <p className="mt-4 text-center text-green-600">{message}</p>}
+            {message && <p className="mt-4 text-center text-green-400">{message}</p>}
             {error && <p className="mt-4 text-center text-red-600">{error}</p>}
             <div className="flex gap-3">
               <button
                 onClick={handleSave}
-                className="bg-green-600 text-white px-4 py-2 rounded"
+                className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-500 transition-colors"
               >
                 Save
               </button>
               <button
                 onClick={() => setEditing(false)}
-                className="bg-gray-300 px-4 py-2 rounded"
+                className="bg-gray-600 px-4 py-2 rounded-lg hover:bg-gray-500 transition-colors"
               >
                 Cancel
               </button>
