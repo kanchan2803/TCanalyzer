@@ -5,6 +5,7 @@ import { ChatGroq } from '@langchain/groq';
 import { ChatPromptTemplate } from '@langchain/core/prompts';
 import { JsonOutputParser } from '@langchain/core/output_parsers';
 import authRoutes from './routes/authRouter.js'
+import userRoutes from './routes/userRouter.js'
 import './config/db.js'
 import connectDB from './config/db.js';
 
@@ -19,6 +20,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/auth", authRoutes); //This tells your server: “Any request that starts with /auth should be handled by the auth.js router.” After this, your backend will recognize /auth/signup and /auth/login.
+app.use("/user", userRoutes);
 
 // Setup Groq LLM
 const model = new ChatGroq({

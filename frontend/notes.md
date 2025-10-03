@@ -248,6 +248,16 @@ step4: setup routes for these files
 6. fix pages with new import paths
 - will directly use  useAuth hook created and not usecontext
 
+> login and signup are now error free 
+
+# settings page 
+1. add new api call fnxn in services/api.js
+  - no need to send id now as backend is getting it from token only send data
+  - add an interceptor to thisfor authorisation
+2. add this to authcontext
+3. create thre signup page 
+
+
 
 
 

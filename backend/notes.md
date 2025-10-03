@@ -211,4 +211,14 @@ all changes mentioned below:
         - 3 parameters : id, secret key, expires in
     - now send response status and token within it
 
-6. added authentication middleware which uses jwt fro ensuring safe authentication for protected routes w
+6. added authentication middleware which uses jwt fro ensuring safe authentication for protected routes 
+
+>login and signup error 
+
+# settings page 
+1. added update user fnxn in  controller/userController 
+2. add this /profile route as put api in routes 
+
+> starting with the home page modification , we will be using web scraping 
+# web scraping for solutions 
+

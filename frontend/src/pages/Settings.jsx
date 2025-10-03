@@ -1,16 +1,20 @@
 // src/pages/Settings.jsx
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/authContext";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../context/authContext";
 import { updateUserApi } from "../services/api";
 
 export default function Settings() {
-  const { user, updateUser } = useContext(AuthContext);
+  const { user, updateUser } = useAuth();
+
   const [form, setForm] = useState({ 
     name: user?.name || "",
     email: user?.email || "", 
     leetcodeId: user?.leetcodeId || "", 
     codeforcesId: user?.codeforcesId || "" 
   });
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+
   const [editing, setEditing] = useState(false);
 
   useEffect(() => {
@@ -27,23 +31,25 @@ export default function Settings() {
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSave = async () => {
+    setError("");
+    setMessage("");
     try {
-      const updated = await updateUserApi(user._id, form);
+      const updated = await updateUserApi(form);
       updateUser(updated);
       setEditing(false);
-      alert("Profile updated!");
+      setMessage('Profile updated successfully!');
     } catch (err) {
       console.log("update error:",err);
-      alert("Update failed");
+      setError('Failed to update profile. Please try again.');
     }
   };
 
   if (!user) return <div className="p-6">Please log in</div>;
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6 flex justify-center">
-      <div className="w-full max-w-2xl bg-white shadow rounded-lg p-6">
-        <h2 className="text-2xl font-bold mb-6">Profile Settings</h2>
+    <div className="min-h-screen bg-gray-100 p-6 flex items- center justify-center p-4">
+      <div className="w-full max-w-lg bg-white shadow-xl rounded-2xl p-8">
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Profile Settings</h2>
 
         {/* Display Mode */}
         {!editing ? (
@@ -99,7 +105,8 @@ export default function Settings() {
                 className="w-full border px-3 py-2 rounded"
               />
             </div>
-
+            {message && <p className="mt-4 text-center text-green-600">{message}</p>}
+            {error && <p className="mt-4 text-center text-red-600">{error}</p>}
             <div className="flex gap-3">
               <button
                 onClick={handleSave}

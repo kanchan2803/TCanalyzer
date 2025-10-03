@@ -4,6 +4,17 @@ const API = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL, // Backend server URL
 })
 
+// Add an interceptor to include the auth token in all requests
+API.interceptors.request.use((req) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    // Note: Your ensureAuthenticated middleware expects 'authorization', not 'Authorization'
+    // but HTTP headers are case-insensitive. 'Authorization' is standard.
+    req.headers.Authorization = token;
+  }
+  return req;
+});
+
 export const analyzeCode = async (code, language) => {
     try {
         //because we r returning a json object 
@@ -15,14 +26,13 @@ export const analyzeCode = async (code, language) => {
     }
 };
 
-// get user details
-export const getUserApi = async (id) => {
-  const res = await API.get(`/user/${id}`);
-  return res.data;
-};
-
 // update user profile
-export const updateUserApi = async (id, data) => {
-  const res = await API.put(`/user/${id}`, data);
-  return res.data;
+export const updateUserApi = async (userData) => {
+  try {
+    const { data } = await API.put("/user/profile", userData);
+    return data;
+  } catch (error) {
+    console.error("API Error updating user:", error.response?.data || error.message);
+    throw error;
+  }
 };
