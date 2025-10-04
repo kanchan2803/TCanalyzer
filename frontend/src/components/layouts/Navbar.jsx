@@ -16,9 +16,12 @@ export default function Navbar() {
       navigate("/login");
     }
 
-    const linkClasses = ({ isActive }) =>
+    // Classes for links in the main navbar (desktop)
+  const desktopLinkClasses = ({ isActive }) =>
     "hover:text-purple-400 transition-colors duration-300 " + (isActive ? "text-purple-500 font-bold" : "");
-
+  
+  // Classes for links inside the dropdown menu (mobile)
+  const mobileLinkClasses = "px-3 py-2 rounded hover:bg-gray-700 transition-colors block w-full text-left";
 
     return (
         <nav className="bg-gray-800 text-white px-8 py-4 flex justify-between items-center shadow-lg">
@@ -30,18 +33,19 @@ export default function Navbar() {
         </span>
             </NavLink>
 
-            <ul className='flex gap-6 items-center'>
-                <li><NavLink to="/" end className={linkClasses}>Home</NavLink></li>
-                <li><NavLink to="/about" className={linkClasses}>About</NavLink></li>
-                <li><NavLink to="/history" className={linkClasses}>History</NavLink></li>
-            </ul>
+            {/* Desktop Navigation Links - Hidden on mobile */}
+        <div className="hidden md:flex md:items-center md:space-x-8">
+          <NavLink to="/" end className={desktopLinkClasses}>Home</NavLink>
+          <NavLink to="/about" className={desktopLinkClasses}>About</NavLink>
+          <NavLink to="/history" className={desktopLinkClasses}>History</NavLink>
+        </div>
 
             <div className="relative">
                 <button
                     className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold transform hover:scale-110 transition-transform duration-300"
                     onClick={() => setMenuOpen(!menuOpen)}
                 >
-                    {isLoggedIn ? user.name.charAt(0).toUpperCase() : "?"} {/* Initial for logged user, ? if guest */}
+                    {isLoggedIn ? user.name.charAt(0).toUpperCase() : "☰"} {/* Initial for logged user, ? if guest */}
 
                 </button>
 
@@ -49,6 +53,13 @@ export default function Navbar() {
                 <div 
                     className={`absolute right-0 mt-2 w-56 bg-gray-800 text-white rounded-lg shadow-2xl border border-gray-700 p-4 z-10 transition-all duration-200 ease-out transform origin-top-right ${menuOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0 pointer-events-none'}`}
                 >
+                  {/* --- Mobile-only Navigation Links --- */}
+            <div className="md:hidden border-b border-gray-700 mb-2 pb-2">
+              <NavLink to="/" end className={mobileLinkClasses} onClick={() => setMenuOpen(false)}>Home</NavLink>
+              <NavLink to="/about" className={mobileLinkClasses} onClick={() => setMenuOpen(false)}>About</NavLink>
+              <NavLink to="/history" className={mobileLinkClasses} onClick={() => setMenuOpen(false)}>History</NavLink>
+            </div>
+            
               {!isLoggedIn ? (
               <div className="flex flex-col gap-2">
                 <NavLink

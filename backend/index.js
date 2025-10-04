@@ -16,7 +16,10 @@ const PORT = process.env.PORT ;
 connectDB();
 
 //middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/auth", authRoutes); //This tells your server: “Any request that starts with /auth should be handled by the auth.js router.” After this, your backend will recognize /auth/signup and /auth/login.
