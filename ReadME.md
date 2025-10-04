@@ -5,7 +5,7 @@
 TCAnalyzer is a full-stack web application built to **demystify the performance of algorithms**.  
 It provides developers, students, and coding enthusiasts with **instant, clear analysis of time and space complexity** directly in the browser — making it both a **learning tool** and a **developer assistant**.
 
-🔗 **Live Demo:** [TCAnalyzer on Render](https://your-app-name.onrender.com)  
+🔗 **Live Demo:** [TCAnalyzer on Render](https://tcanalyzer-kd.onrender.com/)  
 🧠 **Stack:** React (Vite) · Node.js · Express · MongoDB · JWT Auth · Tailwind CSS
 
 ---
@@ -63,7 +63,7 @@ A **quick performance sanity check** when optimizing algorithms or refactoring f
 ```
 TCAnalyzer/
 │
-├── client/                # Frontend (React + Vite)
+├── frontend/                # Frontend (React + Vite)
 │   ├── src/
 │   │   ├── components/
 │   │   ├── pages/
@@ -72,7 +72,7 @@ TCAnalyzer/
 │   ├── public/
 │   └── dist/              # Production build output
 │
-├── server/                # Backend (Node + Express)
+├── backend/                # Backend (Node + Express)
 │   ├── controllers/
 │   ├── routes/
 │   ├── models/
@@ -97,11 +97,11 @@ cd TCAnalyzer
 
 ### 2️⃣ Backend Setup
 ```bash
-cd server
+cd backend
 npm install
 ```
 
-Create a `.env` file inside `/server`:
+Create a `.env` file inside `/backend`:
 ```env
 MONGO_DB_URI=your_mongodb_atlas_uri
 JWT_SECRET=your_jwt_secret
@@ -118,11 +118,11 @@ The server will run on [http://localhost:5000](http://localhost:5000)
 
 ### 3️⃣ Frontend Setup
 ```bash
-cd ../client
+cd ../frontend
 npm install
 ```
 
-Create a `.env` file inside `/client`:
+Create a `.env` file inside `/frontend`:
 ```env
 VITE_API_BASE_URL=http://localhost:5000
 ```
@@ -142,7 +142,7 @@ Open [http://localhost:5173](http://localhost:5173)
 2. On [Render Dashboard](https://render.com):
    - **New → Web Service**
    - Connect your repo.
-   - **Root Directory:** `server`
+   - **Root Directory:** `backend`
    - **Build Command:** `npm install`
    - **Start Command:** `npm start`
 3. Add environment variables:
@@ -158,7 +158,7 @@ Open [http://localhost:5173](http://localhost:5173)
 
 ### 🔹 Frontend Deployment
 1. Create **New → Static Site** on Render.
-2. **Root Directory:** `client`
+2. **Root Directory:** `frontend`
 3. **Build Command:** `npm install && npm run build`
 4. **Publish Directory:** `dist`
 5. Add env var:
@@ -190,18 +190,6 @@ CLIENT_URL=https://tcanalyzer.onrender.com
 
 ---
 
-## 🔧 Environment Variables Summary
-
-| Variable | Description |
-|-----------|-------------|
-| `MONGO_DB_URI` | MongoDB Atlas connection string |
-| `JWT_SECRET` | Secret key for signing JWTs |
-| `PORT` | Server port (default 5000) |
-| `CLIENT_URL` | Frontend domain for CORS |
-| `VITE_API_BASE_URL` | Backend API endpoint (for frontend) |
-
----
-
 ## 🧩 Demonstrated Expertise
 
 ### 💪 Full-Stack MERN Development
@@ -224,8 +212,14 @@ CLIENT_URL=https://tcanalyzer.onrender.com
 
 ---
 
-## 🧾 License
-MIT License © 2025 [Your Name]
+## 🧾 enhancements TO DO further
+want to add different modes of input in home page 
+1: the default one which is working right now 
+2: the file input from local system and code gets extracted into the text area
+3: Direct code extraction from the latest solution submitted of user on leetcode 
+   and extracting code from the leetcode submission link
+4: similar to keetcode but for codeforces 
+> I need to learn web scraping or some alternative to implement this feature , however will try integrating this direct analysis from leetcode and codforces id of user 
 
 ---
 
